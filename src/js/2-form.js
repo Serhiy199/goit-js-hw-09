@@ -10,17 +10,11 @@ const odject = {
     message: '',
 };
 
-if (savedTheme) {
+// console.log(Boolean(window.localStorage.length));
+
+if (window.localStorage.length >= 1) {
     const targetForm = JSON.parse(savedTheme);
-    // console.log(odject.email);
-    // console.log(typeof(targetForm.email));
-    let valueEmail = odject.email;
-    console.log(valueEmail);
-    valueEmail = 'dcscvsdc';
-    console.log(valueEmail);
-    valueEmail = targetForm.email;
-    console.log(valueEmail);
-    input.value = valueEmail;
+    input.value = targetForm.email;
 
     textarea.value = targetForm.message;
 }
