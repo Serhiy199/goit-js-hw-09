@@ -84,10 +84,4 @@ listGallery.insertAdjacentHTML('beforeend', newString);
 let gallery = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
-    position: 'absolute',
-});
-
-gallery.on('shown.simplelightbox', function () {
-    const modal = document.querySelector('body');
-    modal.style.paddingRight = '156px';
 });
