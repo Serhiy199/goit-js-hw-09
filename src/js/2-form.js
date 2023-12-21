@@ -1,38 +1,29 @@
 const form = document.querySelector('form');
 const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
-const savedTheme = localStorage.getItem('feedback-form-state');
+const returnsLocalStorage = localStorage.getItem('feedback-form-state');
 
-// <--------------------Перший варіант---------------------->
-
-const odject = {
+const formDataObject = {
     email: '',
     message: '',
 };
 
-// console.log(Boolean(window.localStorage.length));
-
 if (window.localStorage.length >= 1) {
-    const targetForm = JSON.parse(savedTheme);
-    input.value = targetForm.email;
-
-    textarea.value = targetForm.message;
+    const targetForm = JSON.parse(returnsLocalStorage);
+    input.value = targetForm.email.trim();
+    textarea.value = targetForm.message.trim();
 }
 
 form.addEventListener('input', event => {
-    if (event.target === input) {
-        odject.email = event.target.value.trim();
-    }
-    if (event.target === textarea) {
-        odject.message = event.target.value.trim();
-    }
-    localStorage.setItem('feedback-form-state', JSON.stringify(odject));
+    formDataObject[event.target.name] = event.target.value.trim();
+    localStorage.setItem('feedback-form-state', JSON.stringify(formDataObject));
 });
 
 form.addEventListener('submit', event => {
     event.preventDefault();
-    if (odject.email && odject.message) {
+    if (input.value && textarea.value) {
         const savedThemeFar = localStorage.getItem('feedback-form-state');
+
         console.log(JSON.parse(savedThemeFar));
         localStorage.removeItem('feedback-form-state');
         form.reset();
@@ -40,21 +31,3 @@ form.addEventListener('submit', event => {
         alert('Please fill in the form field');
     }
 });
-
-// <--------------------Другий варіант---------------------->
-
-// form.addEventListener('input', event => {
-//     const formData = new FormData(form);
-//     const formObject = {};
-//     formData.forEach((value, key) => {
-//         formObject[key] = value;
-//     });
-//     localStorage.setItem('feedback-form-state', JSON.stringify(formObject));
-// });
-
-// form.addEventListener('submit', event => {
-//     event.preventDefault();
-//     console.log(formObject);
-//     localStorage.removeItem('feedback-form-state');
-//     form.reset();
-// });

@@ -74,7 +74,7 @@ const newString = images.reduce(
         html +
         `<li class="gallery-item">
             <a class="gallery-link" href="${original}">
-                <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}"/>
+                <img class="gallery-image" src="${preview}" alt="${description}"/>
             </a>
         </li>`,
     ''
@@ -90,10 +90,4 @@ let gallery = new SimpleLightbox('.gallery a', {
 gallery.on('shown.simplelightbox', function () {
     const modal = document.querySelector('body');
     modal.style.paddingRight = '156px';
-    // modal.style.backgroundColor = 'rgba(46, 47, 66, 0.80)';
 });
-
-// gallery.on('closed.simplelightbox', function () {
-//     const modal = document.querySelector('body');
-//     modal.style.backgroundColor = '';
-// });
