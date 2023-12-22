@@ -20,7 +20,8 @@ form.addEventListener('input', event => {
     const formData = new FormData(form);
     const formDataObject = {};
     formData.forEach((value, key) => {
-        formDataObject[key] = value;
+        formDataObject[key] = value.trim();
+        // console.log(typeof value);
     });
     localStorage.setItem('feedback-form-state', JSON.stringify(formDataObject));
 });
