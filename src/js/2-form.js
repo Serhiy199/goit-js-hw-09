@@ -1,41 +1,37 @@
 const form = document.querySelector('form');
-const input = document.querySelector('input');
-const textarea = document.querySelector('textarea');
-const returnsLocalStorage = localStorage.getItem('feedback-form-state');
+const email = document.querySelector('input[name="email"]');
+const message = document.querySelector('textarea[name="message"]');
 
 try {
-    console.log(!returnsLocalStorage);
-    const targetForm = JSON.parse(returnsLocalStorage);
-    input.value = targetForm.email.trim();
-    textarea.value = targetForm.message.trim();
+    const returnsLocalStorage = JSON.parse(
+        localStorage.getItem('feedback-form-state')
+    );
+    Array.from(form.elements).forEach(element => {
+        const storageValue = returnsLocalStorage[element.name];
+        if (storageValue) {
+            element.value = storageValue;
+        }
+    });
 } catch (error) {
-    console.log();
+    console.log('Parse form storage error');
 }
 
-const formDataObject = {
-    email: '',
-    message: '',
-};
-
 form.addEventListener('input', event => {
-    if (event.target === input) {
-        formDataObject.email = event.target.value.trim();
-    } else if (event.target === textarea) {
-        formDataObject.message = event.target.value.trim();
-    }
+    const formData = new FormData(form);
+    const formDataObject = {};
+    formData.forEach((value, key) => {
+        formDataObject[key] = value;
+    });
     localStorage.setItem('feedback-form-state', JSON.stringify(formDataObject));
 });
 
 form.addEventListener('submit', event => {
     event.preventDefault();
-    if (input.value && textarea.value) {
-        formDataObject.email.trim();
-        formDataObject.message.trim();
+    if (email.value && message.value) {
         const savedForm = localStorage.getItem('feedback-form-state');
         console.log(JSON.parse(savedForm));
         localStorage.removeItem('feedback-form-state');
-        input.value = '';
-        textarea.value = '';
+        form.reset();
     } else {
         alert('Please fill in the form field');
     }

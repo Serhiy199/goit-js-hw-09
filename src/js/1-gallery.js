@@ -69,7 +69,7 @@ const images = [
     },
 ];
 
-const newString = images.reduce(
+const galleryMarkup = images.reduce(
     (html, { preview, original, description }) =>
         html +
         `<li class="gallery-item">
@@ -79,7 +79,7 @@ const newString = images.reduce(
         </li>`,
     ''
 );
-listGallery.insertAdjacentHTML('beforeend', newString);
+listGallery.insertAdjacentHTML('beforeend', galleryMarkup);
 
 let gallery = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
